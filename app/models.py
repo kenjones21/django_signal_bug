@@ -21,9 +21,12 @@ class Other(models.Model):
     m2m_field = models.ManyToManyField(to=OtherRelated)
 
 @receiver(m2m_changed, sender=Abstract.m2m_field.through)
-def m2m_signal(sender, **kwargs):
-    print('Abstract m2m changed')
+def abstract_signal(sender, **kwargs):
+    wrapped_function(sender, **kwargs)
 
 @receiver(m2m_changed, sender=Concrete.m2m_field.through)
-def m2m_signal(sender, **kwargs):
-    print('Concrete m2m changed')
+def concrete_signal(sender, **kwargs):
+    wrapped_function(sender, **kwargs)
+
+def wrapped_function(sender, **kwargs):
+    pass
